@@ -1,0 +1,32 @@
+apiVersion: apps/v1beta1
+kind: Deployment
+metadata:
+  name: mydockerdemo-frontend
+  namespace: mydockerdemo
+spec:
+  minReadySeconds: 5
+  selector:
+    matchLabels:
+      app: mydockerdemo
+      layer: frontend
+  replicas: 2
+  revisionHistoryLimit: 5
+  template: 
+    metadata:
+      labels:
+        app: mydockerdemo
+        layer: frontend
+    spec:
+      containers:
+      - name: mydockerdemo-frontend-container
+        image: rajendra1337/myapp-frontend:1.0
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 80
+        resources:
+          limits:
+            cpu: "1"
+            memory: "500Mi"
+          requests:
+            cpu: "0.5"
+            memory: "200Mi"
