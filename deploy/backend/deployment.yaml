@@ -1,0 +1,43 @@
+apiVersion: apps/v1beta1
+kind: Deployment
+metadata:
+  name: mycart-backend
+  namespace: mycart
+spec:
+  minReadySeconds: 5
+  selector:
+    matchLabels:
+      app: mycart
+      layer: backend
+  replicas: 2
+  revisionHistoryLimit: 5
+  template: 
+    metadata:
+      labels:
+        app: mycart
+        layer: backend
+    spec:
+      containers:
+      - name: mycart-backend-container
+        image: rajendra1337/mycart-backend:3.0
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 80
+        resources:
+          limits:
+            cpu: "0.5"
+            memory: "500Mi"
+          requests:
+            cpu: "0.2"
+            memory: "200Mi"
+        env:
+          - name: "MY_DB_USER"
+            value: "mysqluser"
+          - name: "MY_DB_PASS"
+            value: "password"
+          - name: "MY_DB_NAME"
+            value: "mydatadb"
+          - name: "MY_DB_HOST_WRITE"
+            value: "mysql-0.mysql"
+          - name: "MY_DB_HOST_READ"
+            value: "mysql-read"            
