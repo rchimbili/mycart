@@ -19,7 +19,7 @@ spec:
     spec:
       containers:
       - name: mycart-backend-container
-        image: rajendra1337/mycart-backend:3.0
+        image: BUILDTAG
         imagePullPolicy: Always
         ports:
         - containerPort: 80
